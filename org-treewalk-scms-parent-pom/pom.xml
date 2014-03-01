@@ -1,0 +1,60 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.treewalk.scms</groupId>
+    <artifactId>org-treewalk-scms-parent-pom</artifactId>
+    <version>0.1-PHASE1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>Software Configuration Management System (SCMS): Parent POM</name>
+
+    <properties>
+        <!-- ================= -->
+        <!-- Global Properties -->
+        <!-- ================= -->
+
+        <!-- Set default encoding to UTF-8 (most plugins) -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
+
+        <!-- Set compiler source and target versions (m-compiler-p) -->
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.source>${maven.compiler.target}</maven.compiler.source>
+
+        <!-- Set compiler to be more verbose (m-compiler-p) -->
+        <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
+        <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
+
+        <!-- Disable report aggregation (m-jxr-p, m-pmd-p, m-surefire-report-p) -->
+        <aggregate>false</aggregate>
+
+        <!-- Disable report when there is no tests (m-surefire-p) -->
+        <alwaysGenerateSurefireReport>false</alwaysGenerateSurefireReport>
+
+        <!-- Shut off non-error and non-warning messages, making them easier to view (m-javadoc-p) -->
+        <quiet>true</quiet>
+
+        <!-- Disable links detection between modules, it is too slow (m-javadoc-p) -->
+        <detectOfflineLinks>false</detectOfflineLinks>
+
+        <!-- Set target JDK to analyze based on (m-pmd-p) -->
+        <targetJdk>${maven.compiler.target}</targetJdk>
+
+        <!-- Speed-up site generation (m-project-info-reports-p) -->
+        <dependency.locations.enabled>false</dependency.locations.enabled>
+
+        <!-- A comma separated list of locales (m-site-p) -->
+        <locales>en</locales>
+
+        <!-- For multimodule build, if the build fails, none of the reactor projects is deployed (m-install-p, m-deploy-p) -->
+        <installAtEnd>true</installAtEnd>
+
+    </properties>
+
+
+
+</project>
