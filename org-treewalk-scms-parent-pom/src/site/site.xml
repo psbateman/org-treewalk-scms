@@ -16,13 +16,9 @@
 
     <body>
         <links>
-            <item name="${acme-corporate-pom.organizationName}" href="${acme-corporate-pom.organizationUrl}" />
+            <item name="${scms-super-pom.organizationName}" href="${scms-super-pom.organizationUrl}" />
         </links>
 
         <menu ref="reports" inherit="bottom" />
-
-        <menu name="Links" inherit="bottom">
-            <item name="Sonar" href="${acme-corporate-pom.sonarUrl}" />
-        </menu>
     </body>
 </project>

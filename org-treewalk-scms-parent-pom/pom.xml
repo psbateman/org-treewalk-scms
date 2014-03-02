@@ -29,6 +29,16 @@
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
         <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
 
+        <!-- Automatically assign submodules the parent version (m-release-p) -->
+        <autoVersionSubmodules>true</autoVersionSubmodules>
+
+        <!-- Suppress a commit of changes to the working copy before the tag is created (m-release-p) -->
+        <suppressCommitBeforeTag>true</suppressCommitBeforeTag>
+        <remoteTagging>false</remoteTagging>
+
+        <!-- http://jira.codehaus.org/browse/MRELEASE-271 (m-release-p) -->
+        <preparationGoals>clean install</preparationGoals>
+
         <!-- Disable report aggregation (m-jxr-p, m-pmd-p, m-surefire-report-p) -->
         <aggregate>false</aggregate>
 
@@ -50,11 +60,709 @@
         <!-- A comma separated list of locales (m-site-p) -->
         <locales>en</locales>
 
+        <!-- Exclude build-number.txt file created by Bamboo in the project directory (m-release-p) -->
+        <checkModificationExcludeList>build-number.txt</checkModificationExcludeList>
+
         <!-- For multimodule build, if the build fails, none of the reactor projects is deployed (m-install-p, m-deploy-p) -->
         <installAtEnd>true</installAtEnd>
 
+        <!-- Sonar settings (m-sonar-p) -->
+        <sonar.host.url>${scms-super-pom.sonarUrl}</sonar.host.url>
+        <sonar.profile>${scms-super-pom.sonarProfile}</sonar.profile>
+
+        <sonar.language>java</sonar.language>
+
+        <sonar.sourceEncoding>${project.build.sourceEncoding}</sonar.sourceEncoding>
+        <sonar.java.target>${maven.compiler.target}</sonar.java.target>
+        <sonar.java.source>${maven.compiler.source}</sonar.java.source>
+
+        <!-- ================================= -->
+        <!-- Super POM specific properties -->
+        <!-- ================================= -->
+
+        <!-- Super repository locations (do not overwrite) -->
+        <scms-super-pom.releaseRepositoryId>release</scms-super-pom.releaseRepositoryId>
+        <scms-super-pom.releaseRepositoryUrl>dav:https://repository-treewalk.forge.cloudbees.com/release/
+        </scms-super-pom.releaseRepositoryUrl>
+
+        <scms-super-pom.snapshotRepositoryId>snapshot</scms-super-pom.snapshotRepositoryId>
+        <scms-super-pom.snapshotRepositoryUrl>dav:https://repository-treewalk.forge.cloudbees.com/snapshot/
+        </scms-super-pom.snapshotRepositoryUrl>
+
+        <scms-super-pom.siteRepositoryId>scms-site</scms-super-pom.siteRepositoryId>
+        <scms-super-pom.siteRepositoryUrl>dav:https://repository-treewalk.forge.cloudbees.com/site/
+        </scms-super-pom.siteRepositoryUrl>
+
+        <!-- Super projects information (do not overwrite) -->
+        <scms-super-pom.organizationName>Treewalk</scms-super-pom.organizationName>
+        <scms-super-pom.organizationUrl>http://treewalk.org</scms-super-pom.organizationUrl>
+        <scms-super-pom.siteUrl>https://repository-treewalk.forge.cloudbees.com/site/</scms-super-pom.siteUrl>
+
+        <scms-super-pom.ciManagementUrl>https://console.cloudbees.com/a/treewalk/ci#/</scms-super-pom.ciManagementUrl>
+        <scms-super-pom.issueManagementUrl>https://github.com/psbateman/org-treewalk-scms/issues</scms-super-pom.issueManagementUrl>
+
+        <scms-super-pom.sonarUrl>http://sonar.intranet.scms.com/sonar</scms-super-pom.sonarUrl>
+        <scms-super-pom.sonarProfile>scms</scms-super-pom.sonarProfile>
+
+        <scms-super-pom.checkstyleUrl>
+            <![CDATA[${scms-super-pom.sonarUrl}/profiles/export?name=${scms-super-pom.sonarProfile}&language=${sonar.language}&format=checkstyle]]></scms-super-pom.checkstyleUrl>
+        <scms-super-pom.pmdUrl>
+            <![CDATA[${scms-super-pom.sonarUrl}/profiles/export?name=${scms-super-pom.sonarProfile}&language=${sonar.language}&format=pmd]]></scms-super-pom.pmdUrl>
+        <scms-super-pom.findbugsUrl>
+            <![CDATA[${scms-super-pom.sonarUrl}/profiles/export?name=${scms-super-pom.sonarProfile}&language=${sonar.language}&format=findbugs]]></scms-super-pom.findbugsUrl>
+
+        <!-- Core plugins -->
+        <scms-super-pom.cleanVersion>2.5</scms-super-pom.cleanVersion>
+        <scms-super-pom.compilerVersion>3.1</scms-super-pom.compilerVersion>
+        <scms-super-pom.deployVersion>2.7</scms-super-pom.deployVersion>
+        <scms-super-pom.failsafeVersion>2.16</scms-super-pom.failsafeVersion>
+        <scms-super-pom.installVersion>2.4</scms-super-pom.installVersion>
+        <scms-super-pom.resourcesVersion>2.6</scms-super-pom.resourcesVersion>
+        <scms-super-pom.siteVersion>3.3</scms-super-pom.siteVersion>
+        <scms-super-pom.surefireVersion>2.16</scms-super-pom.surefireVersion>
+        <scms-super-pom.verifierVersion>1.0</scms-super-pom.verifierVersion>
+
+        <!-- Packaging plugins -->
+        <scms-super-pom.earVersion>2.8</scms-super-pom.earVersion>
+        <scms-super-pom.ejbVersion>2.3</scms-super-pom.ejbVersion>
+        <scms-super-pom.jarVersion>2.4</scms-super-pom.jarVersion>
+        <scms-super-pom.rarVersion>2.3</scms-super-pom.rarVersion>
+        <scms-super-pom.warVersion>2.4</scms-super-pom.warVersion>
+        <scms-super-pom.shadeVersion>2.1</scms-super-pom.shadeVersion>
+
+        <!-- Reporting plugins (only used subset) -->
+        <scms-super-pom.checkstyleVersion>2.10</scms-super-pom.checkstyleVersion>
+        <scms-super-pom.findbugsVersion>2.5.2</scms-super-pom.findbugsVersion>
+        <scms-super-pom.javadocVersion>2.9.1</scms-super-pom.javadocVersion>
+        <scms-super-pom.jxrVersion>2.3</scms-super-pom.jxrVersion>
+        <scms-super-pom.pmdVersion>3.0.1</scms-super-pom.pmdVersion>
+        <scms-super-pom.projectInfoVersion>2.7</scms-super-pom.projectInfoVersion>
+        <scms-super-pom.surefireReportVersion>2.16</scms-super-pom.surefireReportVersion>
+
+        <!-- Tool plugins -->
+        <scms-super-pom.antVersion>2.3</scms-super-pom.antVersion>
+        <scms-super-pom.antrunVersion>1.7</scms-super-pom.antrunVersion>
+        <scms-super-pom.archetypeVersion>2.2</scms-super-pom.archetypeVersion>
+        <scms-super-pom.assemblyVersion>2.4</scms-super-pom.assemblyVersion>
+        <scms-super-pom.dependencyVersion>2.8</scms-super-pom.dependencyVersion>
+        <scms-super-pom.enforcerVersion>1.3.1</scms-super-pom.enforcerVersion>
+        <scms-super-pom.gpgVersion>1.4</scms-super-pom.gpgVersion>
+        <scms-super-pom.helpVersion>2.2</scms-super-pom.helpVersion>
+        <scms-super-pom.invokerVersion>1.8</scms-super-pom.invokerVersion>
+        <scms-super-pom.jarsignerVersion>1.2</scms-super-pom.jarsignerVersion>
+        <scms-super-pom.oneVersion>1.3</scms-super-pom.oneVersion>
+        <scms-super-pom.patchVersion>1.1.1</scms-super-pom.patchVersion>
+        <scms-super-pom.pdfVersion>1.2</scms-super-pom.pdfVersion>
+        <scms-super-pom.pluginVersion>3.2</scms-super-pom.pluginVersion>
+        <scms-super-pom.releaseVersion>2.4.1</scms-super-pom.releaseVersion>
+        <scms-super-pom.reactorVersion>1.0</scms-super-pom.reactorVersion>
+        <scms-super-pom.remoteResourcesVersion>1.5</scms-super-pom.remoteResourcesVersion>
+        <scms-super-pom.repositoryVersion>2.3.1</scms-super-pom.repositoryVersion>
+        <scms-super-pom.scmVersion>1.8.1</scms-super-pom.scmVersion>
+        <scms-super-pom.scmPublishVersion>1.0-beta-2</scms-super-pom.scmPublishVersion>
+        <scms-super-pom.sourceVersion>2.2.1</scms-super-pom.sourceVersion>
+        <scms-super-pom.stageVersion>1.0-alpha-2</scms-super-pom.stageVersion>
+        <scms-super-pom.toolchainsVersion>1.0</scms-super-pom.toolchainsVersion>
+        <scms-super-pom.jgitflowVersion>1.0-alpha27</scms-super-pom.jgitflowVersion>
     </properties>
 
+    <!-- ================= -->
+    <!-- Shared settings, should not be redefined in project's POMs -->
+    <!-- ================= -->
+    <licenses>
+        <license>
+            <name>Apache License 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
 
+    <organization>
+        <name>${scms-super-pom.organizationName}</name>
+        <url>${scms-super-pom.organizationUrl}</url>
+    </organization>
+
+    <issueManagement>
+        <url>${scms-super-pom.issueManagementUrl}</url>
+    </issueManagement>
+
+    <ciManagement>
+        <url>${scms-super-pom.ciManagementUrl}</url>
+    </ciManagement>
+
+    <distributionManagement>
+        <repository>
+            <id>${scms-super-pom.releaseRepositoryId}</id>
+            <url>${scms-super-pom.releaseRepositoryUrl}</url>
+        </repository>
+        <snapshotRepository>
+            <id>${scms-super-pom.snapshotRepositoryId}</id>
+            <url>${scms-super-pom.snapshotRepositoryUrl}</url>
+        </snapshotRepository>
+        <site>
+            <id>${scms-super-pom.siteRepositoryId}</id>
+            <url>${scms-super-pom.siteRepositoryUrl}</url>
+        </site>
+    </distributionManagement>
+
+    <!-- ================= -->
+    <!-- Project specific settings, should be redefined in project's POMs -->
+    <!-- ================= -->
+    <url>${scms-super-pom.siteUrl}/${project.artifactId}/</url>
+
+    <developers>
+        <developer>
+            <name>Pat Bateman</name>
+            <email>pat@treewalk.org</email>
+            <roles>
+                <role>Owner</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <!-- <contributors /> -->
+
+    <scm>
+        <connection>scm:git:git@github.com:psbateman/org-treewalk-scms.git</connection>
+        <developerConnection>scm:git:git@github.com:psbateman/org-treewalk-scms.git</developerConnection>
+        <url>https://github.com/psbateman/org-treewalk-scms</url>
+        <tag></tag>
+    </scm>
+
+    <build>
+        <!-- Plugin order based on http://maven.apache.org/plugins/index.html -->
+        <pluginManagement>
+            <plugins>
+                <!-- Core plugins -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>${scms-super-pom.cleanVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${scms-super-pom.compilerVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>${scms-super-pom.deployVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>${scms-super-pom.failsafeVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>${scms-super-pom.installVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${scms-super-pom.resourcesVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>${scms-super-pom.siteVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${scms-super-pom.surefireVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-verifier-plugin</artifactId>
+                    <version>${scms-super-pom.verifierVersion}</version>
+                </plugin>
+
+                <!-- Packaging plugins -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-ear-plugin</artifactId>
+                    <version>${scms-super-pom.earVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-ejb-plugin</artifactId>
+                    <version>${scms-super-pom.ejbVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${scms-super-pom.jarVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-rar-plugin</artifactId>
+                    <version>${scms-super-pom.rarVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>${scms-super-pom.warVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-shade-plugin</artifactId>
+                    <version>${scms-super-pom.shadeVersion}</version>
+                </plugin>
+
+                <!-- Reporting plugins (only used subset) -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>${scms-super-pom.checkstyleVersion}</version>
+                    <configuration>
+                        <!-- Super specific rules -->
+                        <configLocation>${scms-super-pom.checkstyleUrl}</configLocation>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>findbugs-maven-plugin</artifactId>
+                    <version>${scms-super-pom.findbugsVersion}</version>
+                    <configuration>
+                        <!-- Super specific rules -->
+                        <includeFilterFile>${scms-super-pom.findbugsUrl}</includeFilterFile>
+                        <!-- Enable XML output for reporting tools (Bamboo, Hudson) -->
+                        <findbugsXmlOutput>true</findbugsXmlOutput>
+                        <xmlOutput>true</xmlOutput>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${scms-super-pom.javadocVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jxr-plugin</artifactId>
+                    <version>${scms-super-pom.jxrVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-pmd-plugin</artifactId>
+                    <version>${scms-super-pom.pmdVersion}</version>
+                    <configuration>
+                        <!-- Super specific rules -->
+                        <rulesets>
+                            <ruleset>${scms-super-pom.pmdUrl}</ruleset>
+                        </rulesets>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>${scms-super-pom.projectInfoVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-report-plugin</artifactId>
+                    <version>${scms-super-pom.surefireReportVersion}</version>
+                </plugin>
+
+                <!-- Tools -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-ant-plugin</artifactId>
+                    <version>${scms-super-pom.antVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>${scms-super-pom.antrunVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-archetype-plugin</artifactId>
+                    <version>${scms-super-pom.archetypeVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>${scms-super-pom.assemblyVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>${scms-super-pom.dependencyVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>${scms-super-pom.enforcerVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>${scms-super-pom.gpgVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-help-plugin</artifactId>
+                    <version>${scms-super-pom.helpVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-invoker-plugin</artifactId>
+                    <version>${scms-super-pom.invokerVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jarsigner-plugin</artifactId>
+                    <version>${scms-super-pom.jarsignerVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-one-plugin</artifactId>
+                    <version>${scms-super-pom.oneVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-patch-plugin</artifactId>
+                    <version>${scms-super-pom.patchVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-pdf-plugin</artifactId>
+                    <version>${scms-super-pom.pdfVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-plugin-plugin</artifactId>
+                    <version>${scms-super-pom.pluginVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>${scms-super-pom.releaseVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-reactor-plugin</artifactId>
+                    <version>${scms-super-pom.reactorVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-remote-resources-plugin</artifactId>
+                    <version>${scms-super-pom.remoteResourcesVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-repository-plugin</artifactId>
+                    <version>${scms-super-pom.repositoryVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-scm-plugin</artifactId>
+                    <version>${scms-super-pom.scmVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-scm-publish-plugin</artifactId>
+                    <version>${scms-super-pom.scmPublishVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${scms-super-pom.sourceVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-stage-plugin</artifactId>
+                    <version>${scms-super-pom.stageVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-toolchains-plugin</artifactId>
+                    <version>${scms-super-pom.toolchainsVersion}</version>
+                </plugin>
+
+                <!-- Other plugins -->
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>${scms-super-pom.sonarVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>com.atlassian.maven.plugins</groupId>
+                    <artifactId>maven-jgitflow-plugin</artifactId>
+                    <version>${scms-super-pom.jgitflowVersion}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <reporting>
+        <!-- List of plugins in alphabetical order -->
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${scms-super-pom.javadocVersion}</version>
+                <configuration>
+                    <!-- Default configuration for all reports -->
+                </configuration>
+                <reportSets>
+                    <reportSet>
+                        <id>non-aggregate</id>
+                        <configuration>
+                            <!-- Specific configuration for the non aggregated report -->
+                        </configuration>
+                        <reports>
+                            <report>javadoc</report>
+                        </reports>
+                    </reportSet>
+                    <reportSet>
+                        <id>aggregate</id>
+                        <configuration>
+                            <!-- Specific configuration for the aggregated report -->
+                        </configuration>
+                        <reports>
+                            <report>aggregate</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>${scms-super-pom.jxrVersion}</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>${scms-super-pom.surefireReportVersion}</version>
+                <configuration>
+                    <!-- Combine surefire and failsafe into single report. -->
+                    <reportsDirectories>
+                        <reportsDirectory>${project.build.directory}/surefire-reports/</reportsDirectory>
+                        <reportsDirectory>${project.build.directory}/failsafe-reports/</reportsDirectory>
+                    </reportsDirectories>
+                </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>report-only</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <profiles>
+        <!-- Maven 2 specific settings (activated automatically) -->
+        <profile>
+            <id>maven-2</id>
+            <activation>
+                <file>
+                    <!-- basedir expression is only recognized by Maven 3.x (see MNG-2363) -->
+                    <missing>${basedir}</missing>
+                </file>
+            </activation>
+
+            <properties>
+                <!-- ================= -->
+                <!-- Global Properties -->
+                <!-- ================= -->
+
+                <!-- ================================= -->
+                <!-- Super POM specific properties -->
+                <!-- ================================= -->
+                <scms-super-pom.sonarVersion>1.0</scms-super-pom.sonarVersion>
+            </properties>
+
+            <build>
+            </build>
+        </profile>
+
+        <!-- Maven 3 specific settings (activated automatically) -->
+        <profile>
+            <id>maven-3</id>
+            <activation>
+                <file>
+                    <!-- basedir expression is only recognized by Maven 3.x (see MNG-2363) -->
+                    <exists>${basedir}</exists>
+                </file>
+            </activation>
+
+            <properties>
+                <!-- ================= -->
+                <!-- Global Properties -->
+                <!-- ================= -->
+
+                <!-- ================================= -->
+                <!-- Super POM specific properties -->
+                <!-- ================================= -->
+                <scms-super-pom.sonarVersion>2.1</scms-super-pom.sonarVersion>
+            </properties>
+
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-deploy-plugin</artifactId>
+                            <version>${scms-super-pom.deployVersion}</version>
+                            <dependencies>
+                                <!-- Unlike Maven 2, Maven 3 supports out of the box only http:, https: and file: as transport protocols. Declare
+                                        others transports explicitly. -->
+                                <dependency>
+                                    <groupId>org.apache.maven.wagon</groupId>
+                                    <artifactId>wagon-webdav-jackrabbit</artifactId>
+                                    <version>2.1</version>
+                                </dependency>
+                                <!-- http://jira.codehaus.org/browse/WAGON-356 -->
+                                <dependency>
+                                    <groupId>org.slf4j</groupId>
+                                    <artifactId>slf4j-api</artifactId>
+                                    <version>1.7.2</version>
+                                </dependency>
+                                <dependency>
+                                    <groupId>org.slf4j</groupId>
+                                    <artifactId>slf4j-simple</artifactId>
+                                    <version>1.7.2</version>
+                                </dependency>
+                            </dependencies>
+                        </plugin>
+
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-site-plugin</artifactId>
+                            <version>${scms-super-pom.siteVersion}</version>
+                            <configuration>
+                            </configuration>
+                            <executions>
+                                <!-- For Maven3 default execution of site:attach-descriptor has been removed from the built-in lifecycle bindings
+                                        for projects with packaging "pom". Enable it again. -->
+                                <execution>
+                                    <id>attach-descriptor</id>
+                                    <goals>
+                                        <goal>attach-descriptor</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                            <dependencies>
+                                <!-- Unlike Maven 2, Maven 3 supports out of the box only http:, https: and file: as transport protocols. Declare
+                                        others transports explicitly. -->
+                                <dependency>
+                                    <groupId>org.apache.maven.wagon</groupId>
+                                    <artifactId>wagon-ssh</artifactId>
+                                    <version>2.0</version>
+                                </dependency>
+                            </dependencies>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+
+        <!-- Super build constraints (activated by default) -->
+        <profile>
+            <id>enforcer-rules</id>
+            <activation>
+                <!-- To disable profile, define property -Dscms-super-pom.enforcerRulesDisabled=true -->
+                <property>
+                    <name>!scms-super-pom.enforcerRulesDisabled</name>
+                </property>
+            </activation>
+
+            <build>
+                <!-- Enforce project settings -->
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>enforce-super-rules</id>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                                <configuration>
+                                    <rules>
+                                        <requireMavenVersion>
+                                            <version>[2.2.1,),[3.0.4,)</version>
+                                        </requireMavenVersion>
+                                        <requirePluginVersions>
+                                            <message>
+                                                <![CDATA[Found plugins without fixed release version defined, build is not reproducible! Fix all plugin versions.]]></message>
+                                        </requirePluginVersions>
+                                    </rules>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Super POM specific settings (disabled by default) -->
+        <profile>
+            <id>super-pom</id>
+
+            <properties>
+                <!-- Skip properties update for some plugins (m-versions-p) -->
+                <excludeProperties>scms-super-pom.sonarVersion</excludeProperties>
+            </properties>
+
+            <!-- Override site deployment location, deploy the super pom site under separate directory (not under top level directory) -->
+            <distributionManagement>
+                <site>
+                    <id>${scms-super-pom.siteRepositoryId}</id>
+                    <url>${scms-super-pom.siteRepositoryUrl}/${project.artifactId}</url>
+                </site>
+            </distributionManagement>
+        </profile>
+    </profiles>
 
 </project>
