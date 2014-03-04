@@ -1,0 +1,27 @@
+<model xmlns="http://modello.codehaus.org/MODELLO/1.8.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://modello.codehaus.org/MODELLO/1.8.1 http://modello.codehaus.org/xsd/modello-1.8.1.xsd">
+
+    <name>Software Configuration Management System (SCMS) Core Model</name>
+
+    <defaults>
+        <default>
+            <key>package</key>
+            <value>org.treewalk.scms.core.model</value>
+        </default>
+    </defaults>
+
+    <classes>
+        <class rootElement="true" xml.tagName="myproject">
+            <name>Model</name>
+            <version>1.0.0</version>
+            <fields>
+                <field>
+                    <name>myfield</name>
+                    <version>1.0.0</version>
+                    <description>The example of field.</description>
+                    <type>String</type>
+                </field>
+            </fields>
+        </class>
+    </classes>
+</model>

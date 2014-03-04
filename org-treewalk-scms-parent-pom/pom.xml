@@ -164,6 +164,7 @@
         <scms-super-pom.stageVersion>1.0-alpha-2</scms-super-pom.stageVersion>
         <scms-super-pom.toolchainsVersion>1.0</scms-super-pom.toolchainsVersion>
         <scms-super-pom.jgitflowVersion>1.0-alpha27</scms-super-pom.jgitflowVersion>
+        <scms-super-pom.modelloVersion>1.8.1</scms-super-pom.modelloVersion>
     </properties>
 
     <!-- ================= -->
@@ -534,6 +535,12 @@
                     <groupId>com.atlassian.maven.plugins</groupId>
                     <artifactId>maven-jgitflow-plugin</artifactId>
                     <version>${scms-super-pom.jgitflowVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.codehaus.modello</groupId>
+                    <artifactId>modello-maven-plugin</artifactId>
+                    <version>${scms-super-pom.modelloVersion}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
