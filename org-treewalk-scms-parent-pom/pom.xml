@@ -165,6 +165,14 @@
         <scms-super-pom.toolchainsVersion>1.0</scms-super-pom.toolchainsVersion>
         <scms-super-pom.jgitflowVersion>1.0-alpha27</scms-super-pom.jgitflowVersion>
         <scms-super-pom.modelloVersion>1.8.1</scms-super-pom.modelloVersion>
+
+        <!-- Compile & Runtime Dependency Versions -->
+        <scms-super-pom.springframeworkVersion>4.0.2.RELEASE</scms-super-pom.springframeworkVersion>
+
+        <!-- Test Dependency Versions -->
+        <scms-super-pom.junitVersion>4.11</scms-super-pom.junitVersion>
+        <scms-super-pom.mockitoVersion>1.9.5</scms-super-pom.mockitoVersion>
+
     </properties>
 
     <!-- ================= -->
@@ -228,6 +236,64 @@
         <url>https://github.com/psbateman/org-treewalk-scms</url>
         <tag></tag>
     </scm>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Treewalk SCMS Dependencies -->
+            <dependency>
+                <groupId>org.treewalk.scms</groupId>
+                <artifactId>org-treewalk-scms-core-model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.treewalk.scms</groupId>
+                <artifactId>org-treewalk-scms-integration-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.treewalk.scms</groupId>
+                <artifactId>org-treewalk-scms-integration-jira</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Spring Dependencies -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>${scms-super-pom.springframeworkVersion}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Test Dependencies -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${scms-super-pom.junitVersion}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-all</artifactId>
+                <version>${scms-super-pom.mockitoVersion}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- Test Dependencies -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
 
     <build>
         <!-- Plugin order based on http://maven.apache.org/plugins/index.html -->
