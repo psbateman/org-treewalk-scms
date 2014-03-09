@@ -15,5 +15,6 @@
     <modules>
         <module>org-treewalk-scms-parent-pom</module>
         <module>org-treewalk-scms-core</module>
+        <module>org-treewalk-scms-integration</module>
     </modules>
 </project>
