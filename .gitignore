@@ -10,5 +10,10 @@
 *.iml
 .idea
 
+# eclipse
+.project
+.settings
+.classpath
+
 # Maven
 target
