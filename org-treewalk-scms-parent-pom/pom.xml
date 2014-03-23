@@ -168,6 +168,7 @@
 
         <!-- Compile & Runtime Dependency Versions -->
         <scms-super-pom.springframeworkVersion>4.0.2.RELEASE</scms-super-pom.springframeworkVersion>
+        <scms-super-pom.httpclientVersion>4.3.3</scms-super-pom.httpclientVersion>
 
         <!-- Test Dependency Versions -->
         <scms-super-pom.junitVersion>4.11</scms-super-pom.junitVersion>
@@ -264,6 +265,13 @@
                 <version>${scms-super-pom.springframeworkVersion}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <!-- Apache HTTP Client Dependencies -->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${scms-super-pom.httpclientVersion}</version>
             </dependency>
 
             <!-- Test Dependencies -->
@@ -608,6 +616,7 @@
                     <artifactId>modello-maven-plugin</artifactId>
                     <version>${scms-super-pom.modelloVersion}</version>
                 </plugin>
+
             </plugins>
         </pluginManagement>
     </build>

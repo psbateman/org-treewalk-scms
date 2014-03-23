@@ -19,10 +19,26 @@
     <name>Software Configuration Management System (SCMS): Integration Jira</name>
 
     <dependencies>
+
+        <!-- Treewalk SCMS Dependencies -->
         <dependency>
             <groupId>org.treewalk.scms</groupId>
             <artifactId>org-treewalk-scms-integration-core</artifactId>
             <scope>compile</scope>
         </dependency>
+
+        <!-- Spring Dependencies -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 </project>
