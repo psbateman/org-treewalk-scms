@@ -1,7 +1,8 @@
 <model xmlns="http://modello.codehaus.org/MODELLO/1.8.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://modello.codehaus.org/MODELLO/1.8.1 http://modello.codehaus.org/xsd/modello-1.8.1.xsd">
 
-    <name>Software Configuration Management System (SCMS) Core Model</name>
+    <id>scms-model-component</id>
+    <name>Software Configuration Management System (SCMS) Component Model</name>
 
     <defaults>
         <default>
@@ -10,18 +11,190 @@
         </default>
     </defaults>
 
+
     <classes>
-        <class rootElement="true" xml.tagName="myproject">
-            <name>Model</name>
+
+        <class java.enabled="false">
+            <name>ComponentDependencyScope</name>
+            <packageName>org.treewalk.scms.core.model.component</packageName>
             <version>1.0.0</version>
+            <description>Enumeration defined externally from the Modello model.</description>
+        </class>
+
+        <class java.enabled="false">
+            <name>ComponentPackaging</name>
+            <packageName>org.treewalk.scms.core.model.component</packageName>
+            <version>1.0.0</version>
+            <description>Enumeration defined externally from the Modello model.</description>
+        </class>
+
+        <class>
+            <name>ComponentNamespace</name>
+            <packageName>org.treewalk.scms.core.model.component</packageName>
+            <version>1.0.0</version>
+            <description>A Component Namespace uniquely identifies a Component using the
+                Group and Artifact Identifiers. It does not identify versioning or
+                packaging. This detail will be present in the Component model.
+            </description>
             <fields>
                 <field>
-                    <name>myfield</name>
+                    <name>groupId</name>
                     <version>1.0.0</version>
-                    <description>The example of field.</description>
+                    <description>The components group identifier.</description>
                     <type>String</type>
+                    <required>true</required>
+                </field>
+                <field>
+                    <name>artifactId</name>
+                    <version>1.0.0</version>
+                    <description>The components artifact identifier.</description>
+                    <type>String</type>
+                    <required>true</required>
                 </field>
             </fields>
         </class>
+
+        <class>
+            <name>ComponentVersion</name>
+            <packageName>org.treewalk.scms.core.model.component</packageName>
+            <version>1.0.0</version>
+            <description>A Component Version describes a unique version of a Component
+                within the Components Namespace.
+            </description>
+            <fields>
+                <field>
+                    <name>version</name>
+                    <version>1.0.0</version>
+                    <description>The version identifier</description>
+                    <type>String</type>
+                    <required>true</required>
+                </field>
+            </fields>
+        </class>
+
+        <class>
+            <name>ComponentIdentifier</name>
+            <packageName>org.treewalk.scms.core.model.component</packageName>
+            <version>1.0.0</version>
+            <description>Uniquely identifies a component from its namespace and
+                version.
+            </description>
+            <fields>
+                <field>
+                    <name>namespace</name>
+                    <version>1.0.0</version>
+                    <description>The identifying namespace for this component.</description>
+                    <association>
+                        <type>ComponentNamespace</type>
+                    </association>
+                    <required>true</required>
+                </field>
+                <field>
+                    <name>version</name>
+                    <version>1.0.0</version>
+                    <description>The Component's version identifier</description>
+                    <association>
+                        <type>ComponentVersion</type>
+                    </association>
+                </field>
+            </fields>
+        </class>
+
+        <class>
+            <name>ComponentDependencyExclusion</name>
+            <packageName>org.treewalk.scms.core.model.component</packageName>
+            <version>1.0.0</version>
+            <description>A dependency exclusion defines a transitive dependency to exclude</description>
+            <fields>
+                <field>
+                    <name>dependencyId</name>
+                    <version>1.0.0</version>
+                    <description>The associated dependency identifier to exclude</description>
+                    <association>
+                        <type>ComponentNamespace</type>
+                    </association>
+                </field>
+            </fields>
+        </class>
+
+        <class>
+            <name>ComponentDependency</name>
+            <packageName>org.treewalk.scms.core.model.component</packageName>
+            <version>1.0.0</version>
+            <description>A Component Dependency describes a uni-directional relationship
+                between one Component to another Component.
+            </description>
+            <fields>
+                <field>
+                    <name>dependencyId</name>
+                    <version>1.0.0</version>
+                    <description>The associated dependency identifier</description>
+                    <association>
+                        <type>ComponentIdentifier</type>
+                    </association>
+                </field>
+                <field>
+                    <name>scope</name>
+                    <version>1.0.0</version>
+                    <description>The scope of this dependency relationship</description>
+                    <association>
+                        <type>ComponentDependencyScope</type>
+                    </association>
+                </field>
+                <field>
+                    <name>exclusions</name>
+                    <version>1.0.0</version>
+                    <description>The set of transitive dependencies to exclude.</description>
+                    <association>
+                        <type>ComponentDependencyExclusion</type>
+                        <multiplicity>*</multiplicity>
+                    </association>
+                </field>
+
+            </fields>
+        </class>
+
+        <class>
+            <name>Component</name>
+            <packageName>org.treewalk.scms.core.model.component</packageName>
+            <version>1.0.0</version>
+            <description>A Component represents a single version of a Component identified
+                by its Component Namesapce. The Component is described by its version,
+                packaging, parentage, dependencies and scoping.
+            </description>
+            <fields>
+                <field>
+                    <name>id</name>
+                    <version>1.0.0</version>
+                    <description>The Components unique identifier. This identifier does not include any
+                        extra meta-data around the component, thus is reduced to just the namespace and
+                        version.
+                    </description>
+                    <association>
+                        <type>ComponentIdentifier</type>
+                    </association>
+                    <required>true</required>
+                </field>
+                <field>
+                    <name>dependencies</name>
+                    <version>1.0.0</version>
+                    <description>The set of dependencies associated with this component.</description>
+                    <association>
+                        <type>ComponentDependency</type>
+                        <multiplicity>*</multiplicity>
+                    </association>
+                </field>
+                <field>
+                    <name>packaging</name>
+                    <version>1.0.0</version>
+                    <description>The packaging type of this component</description>
+                    <association>
+                        <type>ComponentPackaging</type>
+                    </association>
+                </field>
+            </fields>
+        </class>
+
     </classes>
+
 </model>

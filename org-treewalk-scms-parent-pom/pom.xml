@@ -99,7 +99,8 @@
         <scms-super-pom.siteUrl>https://repository-treewalk.forge.cloudbees.com/site/</scms-super-pom.siteUrl>
 
         <scms-super-pom.ciManagementUrl>https://console.cloudbees.com/a/treewalk/ci#/</scms-super-pom.ciManagementUrl>
-        <scms-super-pom.issueManagementUrl>https://github.com/psbateman/org-treewalk-scms/issues</scms-super-pom.issueManagementUrl>
+        <scms-super-pom.issueManagementUrl>https://github.com/psbateman/org-treewalk-scms/issues
+        </scms-super-pom.issueManagementUrl>
 
         <scms-super-pom.sonarUrl>http://sonar.intranet.scms.com/sonar</scms-super-pom.sonarUrl>
         <scms-super-pom.sonarProfile>scms</scms-super-pom.sonarProfile>
@@ -288,6 +289,7 @@
         </dependencies>
     </dependencyManagement>
 
+    <!-- Default Dependencies associated with all modules -->
     <dependencies>
         <!-- Test Dependencies -->
         <dependency>
