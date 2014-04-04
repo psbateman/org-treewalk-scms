@@ -170,6 +170,7 @@
         <!-- Compile & Runtime Dependency Versions -->
         <scms-super-pom.springframeworkVersion>4.0.2.RELEASE</scms-super-pom.springframeworkVersion>
         <scms-super-pom.httpclientVersion>4.3.3</scms-super-pom.httpclientVersion>
+        <scms-super-pom-mavenVersion>3.2.1</scms-super-pom-mavenVersion>
 
         <!-- Test Dependency Versions -->
         <scms-super-pom.junitVersion>4.11</scms-super-pom.junitVersion>
@@ -275,6 +276,12 @@
                 <version>${scms-super-pom.httpclientVersion}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-model</artifactId>
+                <version>${scms-super-pom-mavenVersion}</version>
+            </dependency>
+
             <!-- Test Dependencies -->
             <dependency>
                 <groupId>junit</groupId>
@@ -300,6 +307,11 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
