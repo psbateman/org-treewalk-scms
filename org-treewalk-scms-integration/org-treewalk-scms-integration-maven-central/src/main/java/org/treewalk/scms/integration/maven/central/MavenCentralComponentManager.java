@@ -1,11 +1,17 @@
 package org.treewalk.scms.integration.maven.central;
 
+import com.thoughtworks.xstream.converters.ConversionException;
+import com.thoughtworks.xstream.io.StreamException;
 import org.apache.maven.model.Model;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.util.Assert;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.treewalk.scms.core.model.component.Component;
 import org.treewalk.scms.core.model.component.ComponentIdentifier;
 import org.treewalk.scms.integration.core.ComponentManager;
+import org.treewalk.scms.integration.core.ComponentManagerException;
 
 /**
  * Implements the {@link org.treewalk.scms.integration.core.ComponentManager}'s API against the
@@ -14,7 +20,7 @@ import org.treewalk.scms.integration.core.ComponentManager;
 public class MavenCentralComponentManager implements ComponentManager {
 
     private RestTemplate restTemplate;
-
+    private String url;
 
     /**
      * Return a {@link org.treewalk.scms.core.model.component.Component} identified by the a {@link org.treewalk.scms.core.model.component.ComponentIdentifier}.
@@ -27,12 +33,20 @@ public class MavenCentralComponentManager implements ComponentManager {
 
         validateIdentifier(identifier);
 
-        Model model = restTemplate.getForObject("http://search.maven.org/remotecontent?filepath={path}", Model.class, buildQueryPath(identifier));
+        try {
+            Model model = restTemplate.getForObject(url, Model.class, buildQueryPath(identifier));
 
-        if (model != null) {
-            return transformModel(model);
+            if (model != null) {
+                return transformModel(model);
+            }
+
+        } catch (HttpServerErrorException e) {
+            throw new ComponentManagerException(e);
+        } catch (HttpClientErrorException e) {
+            throw new ComponentManagerException(e);
+        } catch (HttpMessageNotReadableException e) {
+            throw new ComponentManagerException(e);
         }
-
         return null;
     }
 
@@ -43,6 +57,15 @@ public class MavenCentralComponentManager implements ComponentManager {
      */
     public void setRestTemplate(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
+    }
+
+    /**
+     * Set the Maven Central REST API url.
+     *
+     * @param url the Maven Central REST API url
+     */
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     /**
@@ -87,7 +110,6 @@ public class MavenCentralComponentManager implements ComponentManager {
      * @return
      */
     private Component transformModel(Model model) {
-        Component component = new Component();
-        return component;
+        return MavenComponentTransformation.transformComponent(model);
     }
 }

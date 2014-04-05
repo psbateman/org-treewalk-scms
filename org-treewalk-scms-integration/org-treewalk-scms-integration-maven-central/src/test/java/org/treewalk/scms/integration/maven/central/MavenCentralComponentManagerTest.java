@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -14,6 +15,7 @@ import org.treewalk.scms.core.model.component.Component;
 import org.treewalk.scms.core.model.component.ComponentIdentifier;
 import org.treewalk.scms.core.model.component.ComponentNamespace;
 import org.treewalk.scms.core.model.component.ComponentVersion;
+import org.treewalk.scms.integration.core.ComponentManagerException;
 
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.core.Is.is;
@@ -21,6 +23,8 @@ import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withServerError;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 
@@ -118,12 +122,73 @@ public class MavenCentralComponentManagerTest {
         // when
         manager.getComponent(id);
     }
-    @Test
-    public void testGetComponent_ReturnsNullIfCantFindComponent() {
+
+    @Test(expected = ComponentManagerException.class)
+    public void testGetComponent_500() {
         // given
         mockServer.expect(requestTo("http://search.maven.org/remotecontent?filepath=foo/baa/1"))
                 .andExpect(method(HttpMethod.GET))
-                .andRespond(withSuccess("<project />", MediaType.APPLICATION_XML));
+                .andRespond(withServerError());
+
+        ComponentIdentifier id = new ComponentIdentifier();
+        ComponentNamespace namespace = new ComponentNamespace();
+        namespace.setGroupId("foo");
+        namespace.setArtifactId("baa");
+        id.setNamespace(namespace);
+        ComponentVersion version = new ComponentVersion();
+        version.setVersion("1");
+        id.setVersion(version);
+
+        // when
+        manager.getComponent(id);
+    }
+
+    @Test(expected = ComponentManagerException.class)
+    public void testGetComponent_404() {
+        // given
+        mockServer.expect(requestTo("http://search.maven.org/remotecontent?filepath=foo/baa/1"))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.NOT_FOUND));
+
+        ComponentIdentifier id = new ComponentIdentifier();
+        ComponentNamespace namespace = new ComponentNamespace();
+        namespace.setGroupId("foo");
+        namespace.setArtifactId("baa");
+        id.setNamespace(namespace);
+        ComponentVersion version = new ComponentVersion();
+        version.setVersion("1");
+        id.setVersion(version);
+
+        // when
+        manager.getComponent(id);
+    }
+
+    @Test(expected = ComponentManagerException.class)
+    public void testGetComponent_InvalidMavenPOM() {
+        // given
+        mockServer.expect(requestTo("http://search.maven.org/remotecontent?filepath=foo/baa/1"))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withSuccess("<project>", MediaType.APPLICATION_XML));
+
+        ComponentIdentifier id = new ComponentIdentifier();
+        ComponentNamespace namespace = new ComponentNamespace();
+        namespace.setGroupId("foo");
+        namespace.setArtifactId("baa");
+        id.setNamespace(namespace);
+        ComponentVersion version = new ComponentVersion();
+        version.setVersion("1");
+        id.setVersion(version);
+
+        // when
+        manager.getComponent(id);
+    }
+
+    @Test
+    public void testGetComponent_ReturnsValidComponentFromXML() {
+        // given
+        mockServer.expect(requestTo("http://search.maven.org/remotecontent?filepath=foo/baa/1"))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withSuccess("<project><groupId>foo</groupId></project>", MediaType.APPLICATION_XML));
 
         ComponentIdentifier id = new ComponentIdentifier();
         ComponentNamespace namespace = new ComponentNamespace();
@@ -138,7 +203,7 @@ public class MavenCentralComponentManagerTest {
         Component component = manager.getComponent(id);
 
         // then
-        assertThat(component, is(notNullValue()));
+        assertThat(component.getId().getNamespace().getGroupId(), is("foo"));
     }
 }
 

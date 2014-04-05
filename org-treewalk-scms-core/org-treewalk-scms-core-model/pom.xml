@@ -25,7 +25,8 @@
                 <artifactId>modello-maven-plugin</artifactId>
                 <configuration>
                     <models>
-                        <model>src/main/mdo/org-treewalk-scms-core-model.mdo</model>
+                        <model>src/main/mdo/org-treewalk-scms-core-model-component.mdo</model>
+                        <model>src/main/mdo/org-treewalk-scms-core-model-project.mdo</model>
                     </models>
                     <version>1.0.0</version>
                     <useJava5>true</useJava5>

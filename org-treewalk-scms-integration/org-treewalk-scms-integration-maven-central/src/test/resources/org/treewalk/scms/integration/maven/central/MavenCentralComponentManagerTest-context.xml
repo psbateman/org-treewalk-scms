@@ -24,6 +24,7 @@
 
     <bean id="manager" class="org.treewalk.scms.integration.maven.central.MavenCentralComponentManager">
         <property name="restTemplate" ref="restTemplate"/>
+        <property name="url" value="http://search.maven.org/remotecontent?filepath={path}"/>
     </bean>
 
 </beans>

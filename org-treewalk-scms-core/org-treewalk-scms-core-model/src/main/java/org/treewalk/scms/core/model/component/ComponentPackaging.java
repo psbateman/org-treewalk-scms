@@ -5,5 +5,6 @@ public enum ComponentPackaging {
     JAR,
     WAR,
     EAR,
-    POM;
+    POM,
+    CUST;
 }

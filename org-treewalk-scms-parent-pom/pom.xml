@@ -171,6 +171,7 @@
         <scms-super-pom.springframeworkVersion>4.0.2.RELEASE</scms-super-pom.springframeworkVersion>
         <scms-super-pom.httpclientVersion>4.3.3</scms-super-pom.httpclientVersion>
         <scms-super-pom-mavenVersion>3.2.1</scms-super-pom-mavenVersion>
+        <scms-super-pom.xstreamVersion>1.4.7</scms-super-pom.xstreamVersion>
 
         <!-- Test Dependency Versions -->
         <scms-super-pom.junitVersion>4.11</scms-super-pom.junitVersion>
@@ -276,10 +277,18 @@
                 <version>${scms-super-pom.httpclientVersion}</version>
             </dependency>
 
+            <!-- Maven Dependencies -->
             <dependency>
                 <groupId>org.apache.maven</groupId>
                 <artifactId>maven-model</artifactId>
                 <version>${scms-super-pom-mavenVersion}</version>
+            </dependency>
+
+            <!-- XStream Dependencies -->
+            <dependency>
+                <groupId>com.thoughtworks.xstream</groupId>
+                <artifactId>xstream</artifactId>
+                <version>${scms-super-pom.xstreamVersion}</version>
             </dependency>
 
             <!-- Test Dependencies -->
