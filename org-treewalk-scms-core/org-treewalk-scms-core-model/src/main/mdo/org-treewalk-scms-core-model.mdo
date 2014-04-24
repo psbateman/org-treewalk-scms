@@ -1,0 +1,36 @@
+<model xmlns="http://modello.codehaus.org/MODELLO/1.8.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://modello.codehaus.org/MODELLO/1.8.1 http://modello.codehaus.org/xsd/modello-1.8.1.xsd">
+
+    <id>scms-model</id>
+    <name>Software Configuration Management System (SCMS) Core Model</name>
+
+    <defaults>
+        <default>
+            <key>package</key>
+            <value>org.treewalk.scms.core.model</value>
+        </default>
+    </defaults>
+
+
+    <classes>
+
+        <class java.abstract="true">
+            <name>IdentifiedElement</name>
+            <packageName>org.treewalk.scms.core.model</packageName>
+            <version>1.0.0</version>
+            <description>The base class for all SCMS model classes.
+            </description>
+            <fields>
+                <field>
+                    <name>id</name>
+                    <version>1.0.0</version>
+                    <description>The identifier</description>
+                    <type>String</type>
+                    <required>true</required>
+                </field>
+            </fields>
+        </class>
+
+    </classes>
+
+</model>

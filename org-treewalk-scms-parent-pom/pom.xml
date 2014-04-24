@@ -172,6 +172,7 @@
         <scms-super-pom.httpclientVersion>4.3.3</scms-super-pom.httpclientVersion>
         <scms-super-pom-mavenVersion>3.2.1</scms-super-pom-mavenVersion>
         <scms-super-pom.xstreamVersion>1.4.7</scms-super-pom.xstreamVersion>
+        <scms-super-pom.bcelVersion>5.2</scms-super-pom.bcelVersion>
 
         <!-- Test Dependency Versions -->
         <scms-super-pom.junitVersion>4.11</scms-super-pom.junitVersion>
@@ -289,6 +290,13 @@
                 <groupId>com.thoughtworks.xstream</groupId>
                 <artifactId>xstream</artifactId>
                 <version>${scms-super-pom.xstreamVersion}</version>
+            </dependency>
+
+            <!-- BCEL Dependencies -->
+            <dependency>
+                <groupId>org.apache.bcel</groupId>
+                <artifactId>bcel</artifactId>
+                <version>${scms-super-pom.bcelVersion}</version>
             </dependency>
 
             <!-- Test Dependencies -->

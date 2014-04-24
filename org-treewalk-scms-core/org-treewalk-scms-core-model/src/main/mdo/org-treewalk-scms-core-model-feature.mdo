@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<model xmlns="http://modello.codehaus.org/MODELLO/1.8.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://modello.codehaus.org/MODELLO/1.8.1 http://modello.codehaus.org/xsd/modello-1.8.1.xsd">
+
+    <id>scms-model-component</id>
+    <name>Software Configuration Management System (SCMS) Feature Model</name>
+
+    <defaults>
+        <default>
+            <key>package</key>
+            <value>org.treewalk.scms.core.model</value>
+        </default>
+    </defaults>
+
+
+    <classes>
+
+        <class>
+            <name>Feature</name>
+            <packageName>org.treewalk.scms.core.model.feature</packageName>
+            <version>1.0.0</version>
+            <description>A Feature is a classification of a Feature Type that describes
+                a specific quality that could be delivered by a Product
+            </description>
+            <fields>
+                <field>
+                    <name>name</name>
+                    <version>1.0.0</version>
+                    <description>The name of the Feature.</description>
+                    <type>String</type>
+                    <required>true</required>
+                </field>
+                <field>
+                    <name>description</name>
+                    <version>1.0.0</version>
+                    <description>The description of the .</description>
+                    <type>String</type>
+                    <required>true</required>
+                </field>
+            </fields>
+        </class>
+
+    </classes>
+
+</model>

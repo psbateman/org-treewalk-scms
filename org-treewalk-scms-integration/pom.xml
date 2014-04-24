@@ -20,6 +20,7 @@
 
     <modules>
         <module>org-treewalk-scms-integration-core</module>
+        <module>org-treewalk-scms-integration-java</module>
         <module>org-treewalk-scms-integration-jira</module>
         <module>org-treewalk-scms-integration-maven-central</module>
     </modules>
