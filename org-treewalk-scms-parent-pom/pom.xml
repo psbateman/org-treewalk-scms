@@ -169,7 +169,8 @@
         <scms-super-pom.andromdaVersion>3.4</scms-super-pom.andromdaVersion>
 
         <!-- Compile & Runtime Dependency Versions -->
-        <scms-super-pom.spring-bootVersion>1.2.2.RELEASE</scms-super-pom.spring-bootVersion>
+        <scms-super-pom.spring-bootVersion>1.2.5.RELEASE</scms-super-pom.spring-bootVersion>
+        <scms-super-pom.persistence-apiVersion>1.0.2</scms-super-pom.persistence-apiVersion>
         <scms-super-pom.httpclientVersion>4.3.3</scms-super-pom.httpclientVersion>
         <scms-super-pom-mavenVersion>3.2.1</scms-super-pom-mavenVersion>
         <scms-super-pom.xstreamVersion>1.4.7</scms-super-pom.xstreamVersion>
@@ -277,7 +278,7 @@
             <dependency>
                 <groupId>javax.persistence</groupId>
                 <artifactId>persistence-api</artifactId>
-                <version>1.0.2</version>
+                <version>${scms-super-pom.persistence-apiVersion}</version>
             </dependency>
 
             <!-- Apache HTTP Client Dependencies -->
