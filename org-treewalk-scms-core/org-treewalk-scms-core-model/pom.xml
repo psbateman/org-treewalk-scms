@@ -1,0 +1,57 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.treewalk.scms</groupId>
+        <artifactId>org-treewalk-scms-parent-pom</artifactId>
+        <version>0.1-PHASE1-SNAPSHOT</version>
+        <relativePath>../../org-treewalk-scms-parent-pom/pom.xml</relativePath>
+    </parent>
+
+    <artifactId>org-treewalk-scms-core-model</artifactId>
+    <version>${project.parent.version}</version>
+    <packaging>jar</packaging>
+
+    <name>Software Configuration Management System (SCMS): Core Model</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.modello</groupId>
+                <artifactId>modello-maven-plugin</artifactId>
+                <configuration>
+                    <models>
+                        <model>src/main/mdo/org-treewalk-scms-core-model.mdo</model>
+                        <model>src/main/mdo/org-treewalk-scms-core-model-feature.mdo</model>
+                        <model>src/main/mdo/org-treewalk-scms-core-model-component.mdo</model>
+                        <model>src/main/mdo/org-treewalk-scms-core-model-project.mdo</model>
+                    </models>
+                    <version>1.0.0</version>
+                    <useJava5>true</useJava5>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>myModel</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

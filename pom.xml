@@ -1,0 +1,20 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.treewalk.scms</groupId>
+    <artifactId>org-treewalk-scms-reactor-pom</artifactId>
+    <version>0.1-PHASE1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>Software Configuration Management System (SCMS): Reactor POM</name>
+
+    <modules>
+        <module>org-treewalk-scms-parent-pom</module>
+        <module>org-treewalk-scms-core</module>
+        <module>org-treewalk-scms-integration</module>
+    </modules>
+</project>

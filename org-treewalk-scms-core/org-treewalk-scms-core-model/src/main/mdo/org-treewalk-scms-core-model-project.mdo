@@ -1,0 +1,28 @@
+<model xmlns="http://modello.codehaus.org/MODELLO/1.8.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://modello.codehaus.org/MODELLO/1.8.1 http://modello.codehaus.org/xsd/modello-1.8.1.xsd">
+
+    <id>scms-model-project</id>
+    <name>Software Configuration Management System (SCMS) Project Model</name>
+
+    <defaults>
+        <default>
+            <key>package</key>
+            <value>org.treewalk.scms.core.model</value>
+        </default>
+    </defaults>
+
+    <classes>
+
+        <class>
+            <name>Project</name>
+            <packageName>org.treewalk.scms.core.model.project</packageName>
+            <version>1.0.0</version>
+            <description>A Component Namespace uniquely identifies a Component using the
+                Group and Artifact Identifiers. It does not identify versioning or
+                packaging. This detail will be present in the Component model.
+            </description>
+
+        </class>
+    </classes>
+
+</model>

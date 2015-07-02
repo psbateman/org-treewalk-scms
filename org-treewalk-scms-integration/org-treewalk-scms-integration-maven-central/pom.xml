@@ -1,0 +1,57 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.treewalk.scms</groupId>
+        <artifactId>org-treewalk-scms-parent-pom</artifactId>
+        <version>0.1-PHASE1-SNAPSHOT</version>
+        <relativePath>../../org-treewalk-scms-parent-pom/pom.xml</relativePath>
+    </parent>
+
+    <artifactId>org-treewalk-scms-integration-maven-central</artifactId>
+    <version>${project.parent.version}</version>
+    <packaging>jar</packaging>
+
+    <name>Software Configuration Management System (SCMS): Integration Maven Central</name>
+
+    <dependencies>
+        <!-- Treewalk SCMS Dependencies -->
+        <dependency>
+            <groupId>org.treewalk.scms</groupId>
+            <artifactId>org-treewalk-scms-integration-core</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- Spring Dependencies -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-oxm</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Maven Dependencies -->
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-model</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- XStream Dependencies -->
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
+    </dependencies>
+
+</project>
