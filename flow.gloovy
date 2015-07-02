@@ -1,1 +1,5 @@
-
+node {
+  git url: 'git@github.com:psbateman/org-treewalk-scms.git'
+  def mvnHome = tool 'M3'
+  sh "${mvnHome}/bin/mvn -B verify"
+}
