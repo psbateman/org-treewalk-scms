@@ -166,9 +166,10 @@
         <scms-super-pom.toolchainsVersion>1.0</scms-super-pom.toolchainsVersion>
         <scms-super-pom.jgitflowVersion>1.0-alpha27</scms-super-pom.jgitflowVersion>
         <scms-super-pom.modelloVersion>1.8.1</scms-super-pom.modelloVersion>
+        <scms-super-pom.andromdaVersion>3.4</scms-super-pom.andromdaVersion>
 
         <!-- Compile & Runtime Dependency Versions -->
-        <scms-super-pom.springframeworkVersion>4.0.2.RELEASE</scms-super-pom.springframeworkVersion>
+        <scms-super-pom.spring-bootVersion>1.2.2.RELEASE</scms-super-pom.spring-bootVersion>
         <scms-super-pom.httpclientVersion>4.3.3</scms-super-pom.httpclientVersion>
         <scms-super-pom-mavenVersion>3.2.1</scms-super-pom-mavenVersion>
         <scms-super-pom.xstreamVersion>1.4.7</scms-super-pom.xstreamVersion>
@@ -264,9 +265,10 @@
 
             <!-- Spring Dependencies -->
             <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-framework-bom</artifactId>
-                <version>${scms-super-pom.springframeworkVersion}</version>
+                <!-- Import dependency management from Spring Boot -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${scms-super-pom.spring-bootVersion}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -646,6 +648,12 @@
                     <groupId>org.codehaus.modello</groupId>
                     <artifactId>modello-maven-plugin</artifactId>
                     <version>${scms-super-pom.modelloVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.andromda.maven.plugins</groupId>
+                    <artifactId>andromdapp-maven-plugin</artifactId>
+                    <version>${scms-super-pom.andromdaVersion}</version>
                 </plugin>
 
             </plugins>

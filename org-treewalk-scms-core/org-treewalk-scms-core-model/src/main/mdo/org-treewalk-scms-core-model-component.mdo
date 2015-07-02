@@ -36,6 +36,9 @@
                 Group and Artifact Identifiers. It does not identify versioning or
                 packaging. This detail will be present in the Component model.
             </description>
+            <annotations>
+                <annotation>@javax.persistence.Entity</annotation>
+            </annotations>
             <fields>
                 <field>
                     <name>groupId</name>
