@@ -273,6 +273,13 @@
                 <scope>import</scope>
             </dependency>
 
+            <!-- Java Extensions Dependencies -->
+            <dependency>
+                <groupId>javax.persistence</groupId>
+                <artifactId>persistence-api</artifactId>
+                <version>1.0.2</version>
+            </dependency>
+
             <!-- Apache HTTP Client Dependencies -->
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
